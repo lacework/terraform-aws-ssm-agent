@@ -9,7 +9,7 @@
 set -eou pipefail
 
 readonly org_name=lacework
-readonly project_name=terraform-kubernetes-agent
+readonly project_name=terraform-aws-ssm-agent
 readonly git_user="Alan Nix"
 readonly git_email="alan.nix@lacework.net"
 VERSION=$(cat VERSION)
