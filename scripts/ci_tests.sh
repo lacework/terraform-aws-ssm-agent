@@ -6,7 +6,7 @@
 #
 set -eou pipefail
 
-readonly project_name=terraform-kubernetes-agent
+readonly project_name=terraform-aws-ssm-agent
 
 TEST_CASES=(
   examples/default
