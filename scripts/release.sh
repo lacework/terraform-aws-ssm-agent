@@ -10,8 +10,8 @@ set -eou pipefail
 
 readonly org_name=lacework
 readonly project_name=terraform-aws-ssm-agent
-readonly git_user="Alan Nix"
-readonly git_email="alan.nix@lacework.net"
+readonly git_user="Lacework Inc."
+readonly git_email="ops+releng@lacework.net"
 VERSION=$(cat VERSION)
 
 usage() {
