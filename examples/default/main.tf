@@ -1,6 +1,5 @@
 provider "aws" {
   region  = "us-east-1"
-  profile = "dev_ops"
 }
 
 module "lacework_aws_ssm_agents_install" {
