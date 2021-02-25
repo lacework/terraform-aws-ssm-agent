@@ -2,6 +2,13 @@ provider "aws" {
   region = "us-east-1"
 }
 
+provider "lacework" {}
+
+resource "lacework_agent_access_token" "ssm_deployment" {
+  name        = "ssm-deployment"
+  description = "Used to deploy agents using AWS System Manager"
+}
+
 module "lacework_aws_ssm_agents_install" {
   source = "../../"
 
@@ -13,6 +20,8 @@ module "lacework_aws_ssm_agents_install" {
     billing = "testing"
     owner   = "myself"
   }
+
+  lacework_access_token = lacework_agent_access_token.ssm_deployment.token
 }
 
 resource "aws_resourcegroups_group" "testing" {
@@ -41,13 +50,6 @@ resource "aws_resourcegroups_group" "testing" {
   }
 }
 
-provider "lacework" {}
-
-resource "lacework_agent_access_token" "ssm_deployment" {
-  name        = "ssm-deployment"
-  description = "Used to deploy agents using AWS System Manager"
-}
-
 resource "aws_ssm_association" "lacework_aws_ssm_agents_install_testing" {
   association_name = "install-lacework-agents-testing-group"
 
@@ -58,10 +60,6 @@ resource "aws_ssm_association" "lacework_aws_ssm_agents_install_testing" {
     values = [
       aws_resourcegroups_group.testing.name,
     ]
-  }
-
-  parameters = {
-    Token = lacework_agent_access_token.ssm_deployment.token
   }
 
   compliance_severity = "HIGH"
