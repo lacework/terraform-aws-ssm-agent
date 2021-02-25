@@ -2,17 +2,19 @@
 
 # terraform-aws-ssm-agent
 
-## Description
-
 A Terraform Module to create an AWS Systems Manager document for installing the Lacework Datacollector Agent on to AWS EC2 instances.
 
 ## Inputs
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
-
+| lacework_agent_tags | A map/dictionary of Tags to be assigned to the Lacework datacollector | `map(string)` | `{}` | no |
+| aws_resources_tags | A map/dictionary of Tags to be assigned to created AWS resources | `map(string)` | `{}` | no |
+| aws_resources_prefix | Prefix to use for created AWS resources | `string` | `""` | no |
+| lacework_access_token | The access token for the Lacework agent | `string` | `""` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| ssm_document_name | Name of the AWS SSM Document that setups the Lacework agent |
