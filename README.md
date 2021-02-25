@@ -2,6 +2,9 @@
 
 # terraform-aws-ssm-agent
 
+[![GitHub release](https://img.shields.io/github/release/lacework/terraform-aws-ssm-agent.svg)](https://github.com/lacework/terraform-aws-ssm-agent/releases/)
+[![CircleCI status](https://circleci.com/gh/lacework/terraform-aws-ssm-agent.svg?style=shield)](https://circleci.com/gh/lacework/terraform-aws-ssm-agent)
+
 A Terraform Module to create an AWS Systems Manager document for installing the Lacework Datacollector Agent on to AWS EC2 instances.
 
 ## Inputs
