@@ -3,5 +3,9 @@ terraform {
 
   required_providers {
     aws = "~> 3.0"
+    lacework = {
+      source  = "lacework/lacework"
+      version = "~> 0.2.13"
+    }
   }
 }

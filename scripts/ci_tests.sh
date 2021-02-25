@@ -10,6 +10,7 @@ readonly project_name=terraform-aws-ssm-agent
 
 TEST_CASES=(
   examples/default
+  examples/access-lacework-token-via-provider
 )
 
 log() {
