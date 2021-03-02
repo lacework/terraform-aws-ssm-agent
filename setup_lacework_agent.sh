@@ -9,7 +9,7 @@ TOKEN='{{ Token }}'
 TAGS='{{ Tags }}'
 
 # TODO: Handle systems that don't have systemctl
-if systemctl is-active --quiet kubelet; then
+if systemctl list-unit-files | grep kube; then
   echo "This host appears to be a Kubernetes node, please use the Kubernetes deployment method (https://support.lacework.com/hc/en-us/articles/360005263034-Deploy-on-Kubernetes)."
   exit 0
 fi
@@ -18,6 +18,7 @@ if [ ! -d "$LACEWORK_INSTALL_PATH" ]; then
   echo "Lacework agent not installed, installing..."
 
   # TODO: Add the support for hosts that don't have curl installed
+  # TODO: Verify the signature of the install.sh script
   curl https://packages.lacework.net/install.sh >/tmp/install.sh
 
   chmod +x /tmp/install.sh
@@ -38,5 +39,12 @@ cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
   "tags": $TAGS
 }
 EOF
+
+# Make sure the Lacework datacollector service is enabled and running
+if ! systemctl is-active --quiet datacollector; then
+  echo "Enabling the Lacework datacollector service"
+  systemctl enable datacollector
+  systemctl start datacollector
+fi
 
 echo "Lacework configured successfully!"
