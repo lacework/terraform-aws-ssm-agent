@@ -45,7 +45,7 @@ else
 fi
 
 # Check if Lacework is pre-installed. If not installed, install.
-if [ ! -d "$LACEWORK_INSTALL_PATH" ]; then
+if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
   echo "Lacework agent not installed, installing..."
 
   # TODO: Verify the signature of the install.sh script
