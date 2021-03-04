@@ -21,10 +21,9 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         default     = var.lacework_access_token
       }
 
-      # TODO: Figure out the proper way of passing tags to our bash script, currently does not generate a valid config.json file
       Tags = {
         type        = "String"
-        description = "The Lacework agent token"
+        description = "The Lacework agent tags"
         default     = jsonencode(var.lacework_agent_tags)
       }
     }
