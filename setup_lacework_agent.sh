@@ -8,22 +8,51 @@ LACEWORK_INSTALL_PATH="{{ LaceworkInstallPath }}"
 TOKEN='{{ Token }}'
 TAGS='{{ Tags }}'
 
-# TODO: Handle systems that don't have systemctl
-if systemctl list-unit-files | grep kube; then
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
+get_curl() {
+  if command_exists curl; then
+    curl='curl -sSL'
+  elif command_exists wget; then
+    curl='wget -qO-'
+  elif command_exists busybox && busybox --list-modules | grep -q wget; then
+    curl='busybox wget -qO-'
+  fi
+}
+
+notify_use_docker() {
   echo "This host appears to be a Kubernetes node, please use the Kubernetes deployment method (https://support.lacework.com/hc/en-us/articles/360005263034-Deploy-on-Kubernetes)."
   exit 0
+}
+
+curl=''
+get_curl
+
+# Check if the host is a Kubernetes node. If so, don't install, notify to use Docker instead
+if command_exists systemctl; then
+  if systemctl list-unit-files | grep kubelet; then
+    notify_use_docker
+  fi
+elif command_exists service; then
+  if service --status-all | grep -Fq 'kubelet'; then
+    notify_use_docker
+  fi
+else
+  echo "Cannot check if this host is a Kubernetes node, aborting!"
+  exit 1
 fi
 
-if [ ! -d "$LACEWORK_INSTALL_PATH" ]; then
+# Check if Lacework is pre-installed. If not installed, install.
+if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
   echo "Lacework agent not installed, installing..."
 
-  # TODO: Add the support for hosts that don't have curl installed
   # TODO: Verify the signature of the install.sh script
-  curl https://packages.lacework.net/install.sh >/tmp/install.sh
+  $curl https://packages.lacework.net/install.sh >/tmp/install.sh
 
   chmod +x /tmp/install.sh
 
-  # TODO: Pass tags to the installation script
   sudo /tmp/install.sh "$TOKEN"
 
   rm /tmp/install.sh
@@ -41,10 +70,19 @@ cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
 EOF
 
 # Make sure the Lacework datacollector service is enabled and running
-if ! systemctl is-active --quiet datacollector; then
-  echo "Enabling the Lacework datacollector service"
-  systemctl enable datacollector
-  systemctl start datacollector
+if command_exists systemctl; then
+  if ! systemctl is-active --quiet datacollector; then
+    echo "Enabling the Lacework datacollector service"
+    systemctl enable datacollector
+
+    echo "Starting the Lacework datacollector service"
+    systemctl start datacollector
+  fi
+elif command_exists service; then
+  if ! service datacollector status; then
+    echo "Starting the Lacework datacollector service"
+    service datacollector start
+  fi
 fi
 
 echo "Lacework configured successfully!"
