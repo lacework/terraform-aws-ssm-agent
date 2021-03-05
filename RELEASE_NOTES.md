@@ -1,7 +1,7 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.2.0`.
+Another day, another release. These are the release notes for the version `v0.3.0`.
 
 ## Features
-* feat(command): Enable the datacollector service when disabled (#7) (Jean-Philippe Lachance)([8578d5f](https://github.com/lacework/terraform-aws-ssm-agent/commit/8578d5f564b77841e4f61b992bbf49b1860bd5f3))
-## Other Changes
-* ci: update release ssh-key fingerprint (#6) (Salim Afiune)([1fe6f12](https://github.com/lacework/terraform-aws-ssm-agent/commit/1fe6f12cf751fdc38996e48866664f8b7a6299f8))
+* feat: improve support for multiple Linux distributions (#10) (Jean-Philippe Lachance)([1d9960e](https://github.com/lacework/terraform-aws-ssm-agent/commit/1d9960e270803f11aeed465ef2388ab216c46ed9))
+## Bug Fixes
+* fix(command): typo in the tags parameter description (#9) (Jean-Philippe Lachance)([b629a8c](https://github.com/lacework/terraform-aws-ssm-agent/commit/b629a8c3ae65cc9b2324a7b59aa871b75cc611ba))
