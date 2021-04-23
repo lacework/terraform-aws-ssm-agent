@@ -7,6 +7,7 @@ LACEWORK_INSTALL_PATH="{{ LaceworkInstallPath }}"
 # TODO: Fetch the token from AWS SSM Parameter Store instead of taking it in as a Command parameter (avoid leaks in the AWS Console)
 TOKEN='{{ Token }}'
 TAGS='{{ Tags }}'
+BUILD_HASH='{{ Hash }}'
 
 command_exists() {
   command -v "$@" >/dev/null 2>&1
@@ -48,8 +49,13 @@ fi
 if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
   echo "Lacework agent not installed, installing..."
 
+  _install_sh="https://packages.lacework.net/install.sh"
+  if [ $BUILD_HASH != "" ]; then
+    _install_sh="https://s3-us-west-2.amazonaws.com/www.lacework.net/download/${BUILD_HASH}/install.sh"
+  fi
+
   # TODO: Verify the signature of the install.sh script
-  $curl https://packages.lacework.net/install.sh >/tmp/install.sh
+  $curl "$_install_sh" >/tmp/install.sh
 
   chmod +x /tmp/install.sh
 
