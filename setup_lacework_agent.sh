@@ -50,7 +50,7 @@ if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
   echo "Lacework agent not installed, installing..."
 
   _install_sh="https://packages.lacework.net/install.sh"
-  if [ $BUILD_HASH != "" ]; then
+  if [ "$BUILD_HASH" != "" ]; then
     _install_sh="https://s3-us-west-2.amazonaws.com/www.lacework.net/download/${BUILD_HASH}/install.sh"
   fi
 
