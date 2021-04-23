@@ -26,6 +26,12 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         description = "The Lacework agent tags"
         default     = jsonencode(var.lacework_agent_tags)
       }
+
+      Hash = {
+        type        = "String"
+        description = "An Agent build hash provided by Lacework"
+        default     = var.lacework_agent_build_hash
+      }
     }
 
     mainSteps = [

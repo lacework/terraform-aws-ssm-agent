@@ -1,3 +1,9 @@
+variable "lacework_agent_build_hash" {
+  type        = string
+  description = "An Agent build hash provided by Lacework"
+  default     = ""
+}
+
 variable "lacework_access_token" {
   type        = string
   description = "The access token for the Lacework agent"
