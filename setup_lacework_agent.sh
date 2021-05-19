@@ -67,7 +67,7 @@ fi
 
 # TODO: Add the support for other Lacework configuration options
 echo "Updating the Lacework agent config.json file..."
-if [ "$SERVERURL" != "" ]; then
+if [ "$SERVER_URL" != "" ]; then
   cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
   {
     "tokens": {
