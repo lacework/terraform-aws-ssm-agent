@@ -59,7 +59,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         }
       }
     ]
-  }) 
+  })
 
   tags = var.aws_resources_tags
 }
