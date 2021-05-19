@@ -31,7 +31,7 @@ resource "aws_resourcegroups_group" "testing" {
 resource "aws_ssm_association" "lacework_aws_ssm_agents_install_testing" {
   association_name = "install-lacework-agents-testing-group"
 
-  name = module.lacework_aws_ssm_agents_install.ssm_document_name
+  name = module.lacework_ssm_agents_install_custom_server_url.ssm_document_name
 
   targets {
     key = "resource-groups:Name"
