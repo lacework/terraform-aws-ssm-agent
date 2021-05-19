@@ -27,7 +27,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         default     = jsonencode(var.lacework_agent_tags)
       }
       
-      Servelurl = {
+      Serverurl = {
         type        = "String"
         description = "The server URL for the Lacework agent"
         default     = var.lacework_server_url
