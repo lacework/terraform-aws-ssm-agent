@@ -26,6 +26,12 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         description = "The Lacework agent tags"
         default     = jsonencode(var.lacework_agent_tags)
       }
+      
+      Servelurl = {
+        type        = "String"
+        description = "The server URL for the Lacework agent"
+        default     = var.lacework_server_url
+      }
 
       Hash = {
         type        = "String"
@@ -53,7 +59,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         }
       }
     ]
-  })
+  }) 
 
   tags = var.aws_resources_tags
 }

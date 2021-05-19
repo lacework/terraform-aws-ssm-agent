@@ -15,6 +15,7 @@ A Terraform Module to create an AWS Systems Manager document for installing the 
 | aws_resources_tags | A map/dictionary of Tags to be assigned to created AWS resources | `map(string)` | `{}` | no |
 | aws_resources_prefix | Prefix to use for created AWS resources | `string` | `""` | no |
 | lacework_access_token | The access token for the Lacework agent | `string` | `""` | no |
+| lacework_server_url | The server URL for the Lacework agent | `string` | `""` | no |
 
 ## Outputs
 

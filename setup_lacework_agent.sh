@@ -8,6 +8,7 @@ LACEWORK_INSTALL_PATH="{{ LaceworkInstallPath }}"
 TOKEN='{{ Token }}'
 TAGS='{{ Tags }}'
 BUILD_HASH='{{ Hash }}'
+SERVER_URL='{{ Serverurl }}'
 
 command_exists() {
   command -v "$@" >/dev/null 2>&1
@@ -66,14 +67,26 @@ fi
 
 # TODO: Add the support for other Lacework configuration options
 echo "Updating the Lacework agent config.json file..."
-cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
-{
-  "tokens": {
-    "AccessToken": "$TOKEN"
-  },
-  "tags": $TAGS
-}
+if [ "$SERVERURL" != "" ]; then
+  cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
+  {
+    "tokens": {
+      "AccessToken": "$TOKEN"
+    },
+    "serverurl": "$SERVERURL"
+    "tags": $TAGS
+  }
 EOF
+else
+  cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
+  {
+    "tokens": {
+      "AccessToken": "$TOKEN"
+    },
+    "tags": $TAGS
+  }
+EOF
+fi
 
 # Make sure the Lacework datacollector service is enabled and running
 if command_exists systemctl; then

@@ -27,3 +27,9 @@ variable "aws_resources_tags" {
   description = "A map/dictionary of Tags to be assigned to created AWS resources"
   default     = {}
 }
+
+variable "lacework_server_url" {
+  type        = string
+  default     = ""
+  description = "The server URL for the Lacework agent"
+}
