@@ -26,7 +26,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         description = "The Lacework agent tags"
         default     = jsonencode(var.lacework_agent_tags)
       }
-      
+
       Serverurl = {
         type        = "String"
         description = "The server URL for the Lacework agent"
