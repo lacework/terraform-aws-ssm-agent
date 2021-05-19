@@ -73,7 +73,7 @@ if [ "$SERVER_URL" != "" ]; then
     "tokens": {
       "AccessToken": "$TOKEN"
     },
-    "serverurl": "$SERVERURL"
+    "serverurl": "$SERVER_URL"
     "tags": $TAGS
   }
 EOF
