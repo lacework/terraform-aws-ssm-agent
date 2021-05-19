@@ -29,6 +29,41 @@ notify_use_docker() {
   exit 0
 }
 
+render_agent_config() {
+  local _config_json
+  local _token_json
+  local _server_url_json
+  local _tags_json
+
+  # Token
+  _token_json='"tokens": { "AccessToken": "'$TOKEN'" },'
+
+  # Server URL
+  if [ "$SERVER_URL" != "" ]; then
+    _server_url_json='"serverurl": "'$SERVER_URL'",'
+  fi
+
+  # Tags
+  _tags_json='"tags": '${TAGS:-{}}
+
+  # Render config.json
+  #
+  # NOTE: We must leave the $_tags_json as the last element of the config.json
+  #       file since it doesn't have a ',' at the end that that will generate
+  #       a valid JSON
+  _config_json="""{
+  ${_token_json}
+  ${_server_url_json:-\033[A}
+  ${_tags_json}
+}"""
+
+  echo "Updating the Lacework agent config.json file..."
+  if [ ! -d "$LACEWORK_INSTALL_PATH/config" ]; then
+    mkdir "$LACEWORK_INSTALL_PATH/config"
+  fi
+  echo "$_config_json" > "$LACEWORK_INSTALL_PATH/config/config.json"
+}
+
 curl=''
 get_curl
 
@@ -65,28 +100,7 @@ if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
   rm /tmp/install.sh
 fi
 
-# TODO: Add the support for other Lacework configuration options
-echo "Updating the Lacework agent config.json file..."
-if [ "$SERVER_URL" != "" ]; then
-  cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
-  {
-    "tokens": {
-      "AccessToken": "$TOKEN"
-    },
-    "serverurl": "$SERVER_URL"
-    "tags": $TAGS
-  }
-EOF
-else
-  cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
-  {
-    "tokens": {
-      "AccessToken": "$TOKEN"
-    },
-    "tags": $TAGS
-  }
-EOF
-fi
+render_agent_config
 
 # Make sure the Lacework datacollector service is enabled and running
 if command_exists systemctl; then
