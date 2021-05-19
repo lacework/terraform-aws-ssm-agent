@@ -5,11 +5,7 @@ provider "aws" {
 module "lacework_ssm_agents_install_custom_agent_build_hash" {
   source = "../../"
 
-  lacework_agent_tags = {
-    env = "dev"
-  }
-
-  lacewwork_agent_build_hash = "3.7.2_2021-03-26_branch_123HASH"
+  lacework_agent_build_hash = "3.7.2_2021-03-26_branch_123HASH"
 }
 
 resource "aws_resourcegroups_group" "testing" {
@@ -41,7 +37,7 @@ resource "aws_resourcegroups_group" "testing" {
 resource "aws_ssm_association" "lacework_aws_ssm_agents_install_testing" {
   association_name = "install-lacework-agents-testing-group"
 
-  name = module.lacework_aws_ssm_agents_install.ssm_document_name
+  name = module.lacework_ssm_agents_install_custom_agent_build_hash.ssm_document_name
 
   targets {
     key = "resource-groups:Name"

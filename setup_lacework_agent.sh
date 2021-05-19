@@ -2,12 +2,26 @@
 
 set -e
 
-LACEWORK_INSTALL_PATH="{{ LaceworkInstallPath }}"
-
-# TODO: Fetch the token from AWS SSM Parameter Store instead of taking it in as a Command parameter (avoid leaks in the AWS Console)
-TOKEN='{{ Token }}'
+# Variables coming from the SSM Document
+LACEWORK_INSTALL_PATH='{{ LaceworkInstallPath }}'
 TAGS='{{ Tags }}'
 BUILD_HASH='{{ Hash }}'
+SERVER_URL='{{ Serverurl }}'
+# TODO: Fetch the token from AWS SSM Parameter Store instead of
+#       taking it in as a Command parameter (avoid leaks in the AWS Console)
+TOKEN='{{ Token }}'
+
+# Global variables
+_curl=''
+
+main() {
+  get_curl
+  verify_valid_host
+  install_lacework_agent
+  render_agent_config
+  verify_agent_running
+  echo "Lacework configured successfully!"
+}
 
 command_exists() {
   command -v "$@" >/dev/null 2>&1
@@ -15,11 +29,11 @@ command_exists() {
 
 get_curl() {
   if command_exists curl; then
-    curl='curl -sSL'
+    _curl='curl -sSL'
   elif command_exists wget; then
-    curl='wget -qO-'
+    _curl='wget -qO-'
   elif command_exists busybox && busybox --list-modules | grep -q wget; then
-    curl='busybox wget -qO-'
+    _curl='busybox wget -qO-'
   fi
 }
 
@@ -28,67 +42,94 @@ notify_use_docker() {
   exit 0
 }
 
-curl=''
-get_curl
+render_agent_config() {
+  local _config_json
+  local _token_json
+  local _server_url_json
+  local _tags_json
 
-# Check if the host is a Kubernetes node. If so, don't install, notify to use Docker instead
-if command_exists systemctl; then
-  if systemctl list-unit-files | grep kubelet; then
-    notify_use_docker
-  fi
-elif command_exists service; then
-  if service --status-all | grep -Fq 'kubelet'; then
-    notify_use_docker
-  fi
-else
-  echo "Cannot check if this host is a Kubernetes node, aborting!"
-  exit 1
-fi
+  # Token
+  _token_json='"tokens": { "AccessToken": "'$TOKEN'" },'
 
-# Check if Lacework is pre-installed. If not installed, install.
-if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
-  echo "Lacework agent not installed, installing..."
-
-  _install_sh="https://packages.lacework.net/install.sh"
-  if [ "$BUILD_HASH" != "" ]; then
-    _install_sh="https://s3-us-west-2.amazonaws.com/www.lacework.net/download/${BUILD_HASH}/install.sh"
+  # Server URL
+  if [ "$SERVER_URL" != "" ]; then
+    _server_url_json='"serverurl": "'$SERVER_URL'",'
   fi
 
-  # TODO: Verify the signature of the install.sh script
-  $curl "$_install_sh" >/tmp/install.sh
+  # Tags
+  _tags_json='"tags": '${TAGS:-{}}
 
-  chmod +x /tmp/install.sh
+  # Render config.json
+  #
+  # NOTE: We must leave the $_tags_json as the last element of the config.json
+  #       file since it doesn't have a ',' at the end that that will generate
+  #       a valid JSON
+  _config_json="""{
+  ${_token_json}
+  ${_server_url_json:-\033[A}
+  ${_tags_json}
+}"""
 
-  sudo /tmp/install.sh "$TOKEN"
-
-  rm /tmp/install.sh
-fi
-
-# TODO: Add the support for other Lacework configuration options
-echo "Updating the Lacework agent config.json file..."
-cat >"$LACEWORK_INSTALL_PATH/config/config.json" <<EOF
-{
-  "tokens": {
-    "AccessToken": "$TOKEN"
-  },
-  "tags": $TAGS
+  echo "Updating the Lacework agent config.json file..."
+  if [ ! -d "$LACEWORK_INSTALL_PATH/config" ]; then
+    mkdir "$LACEWORK_INSTALL_PATH/config"
+  fi
+  echo "$_config_json" > "$LACEWORK_INSTALL_PATH/config/config.json"
 }
-EOF
 
-# Make sure the Lacework datacollector service is enabled and running
-if command_exists systemctl; then
-  if ! systemctl is-active --quiet datacollector; then
-    echo "Enabling the Lacework datacollector service"
-    systemctl enable datacollector
+install_lacework_agent() {
+  # Check if Lacework is pre-installed. If not installed, install.
+  if [ ! -f "$LACEWORK_INSTALL_PATH/datacollector" ]; then
+    echo "Lacework agent not installed, installing..."
 
-    echo "Starting the Lacework datacollector service"
-    systemctl start datacollector
+    _install_sh="https://packages.lacework.net/install.sh"
+    if [ "$BUILD_HASH" != "" ]; then
+      _install_sh="https://s3-us-west-2.amazonaws.com/www.lacework.net/download/${BUILD_HASH}/install.sh"
+    fi
+
+    # TODO: Verify the signature of the install.sh script
+    $_curl "$_install_sh" >/tmp/install.sh
+
+    chmod +x /tmp/install.sh
+
+    sudo /tmp/install.sh "$TOKEN"
+
+    rm /tmp/install.sh
   fi
-elif command_exists service; then
-  if ! service datacollector status; then
-    echo "Starting the Lacework datacollector service"
-    service datacollector start
-  fi
-fi
+}
 
-echo "Lacework configured successfully!"
+verify_agent_running() {
+  # Make sure the Lacework datacollector service is enabled and running
+  if command_exists systemctl; then
+    if ! systemctl is-active --quiet datacollector; then
+      echo "Enabling the Lacework datacollector service"
+      systemctl enable datacollector
+
+      echo "Starting the Lacework datacollector service"
+      systemctl start datacollector
+    fi
+  elif command_exists service; then
+    if ! service datacollector status; then
+      echo "Starting the Lacework datacollector service"
+      service datacollector start
+    fi
+  fi
+}
+
+verify_valid_host() {
+  # Check if the host is a Kubernetes node. If so, don't install, notify to use Docker instead
+  if command_exists systemctl; then
+    if systemctl list-unit-files | grep kubelet; then
+      notify_use_docker
+    fi
+  elif command_exists service; then
+    if service --status-all | grep -Fq 'kubelet'; then
+      notify_use_docker
+    fi
+  else
+    echo "Cannot check if this host is a Kubernetes node, aborting!"
+    exit 1
+  fi
+}
+
+main
