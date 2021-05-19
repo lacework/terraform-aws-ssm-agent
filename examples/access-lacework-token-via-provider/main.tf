@@ -22,7 +22,7 @@ module "lacework_aws_ssm_agents_install" {
   }
 
   lacework_access_token = lacework_agent_access_token.ssm_deployment.token
-  lacework_server_url = "https://api.lacework.net"
+  lacework_server_url = "https://api.fra.lacework.net"
 }
 
 resource "aws_resourcegroups_group" "testing" {
