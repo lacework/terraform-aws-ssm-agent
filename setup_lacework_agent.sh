@@ -57,7 +57,7 @@ render_agent_config() {
   fi
 
   # Tags
-  _tags_json='"tags": '${TAGS:-{}}
+  _tags_json='"tags": '${TAGS:-"{}"}
 
   # Render config.json
   #
@@ -66,7 +66,7 @@ render_agent_config() {
   #       a valid JSON
   _config_json="""{
   ${_token_json}
-  ${_server_url_json:-\033[A}
+  ${_server_url_json}
   ${_tags_json}
 }"""
 
