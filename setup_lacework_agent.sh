@@ -16,6 +16,7 @@ _curl=''
 
 main() {
   get_curl
+  verify_valid_token
   verify_valid_host
   install_lacework_agent
   render_agent_config
@@ -128,6 +129,14 @@ verify_valid_host() {
     fi
   else
     echo "Cannot check if this host is a Kubernetes node, aborting!"
+    exit 1
+  fi
+}
+
+verify_valid_token() {
+  # Check to make sure that a Lacework agent access token was provided. If not, exit
+  if [ -z "$TOKEN" ]; then
+    echo "Lacework agent access token was empty, aborting!"
     exit 1
   fi
 }
