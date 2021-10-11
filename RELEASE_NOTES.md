@@ -1,7 +1,10 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.5.1`.
+Another day, another release. These are the release notes for the version `v0.5.2`.
 
 ## Bug Fixes
-* fix: deployment of Agent config.json file (#22) (Salim Afiune)([64c925c](https://github.com/lacework/terraform-aws-ssm-agent/commit/64c925c9857ec7738a482c0a68f92b16e52ba162))
+* fix: added logic to verify agent access token (Alan Nix)([fe889a3](https://github.com/lacework/terraform-aws-ssm-agent/commit/fe889a3e5a9a14041a5fc097405d463c3c0ac3e3))
+## Documentation Updates
+* docs: Add contributing documentation (#25) (Darren)([e44f96f](https://github.com/lacework/terraform-aws-ssm-agent/commit/e44f96f1f37ac95718a5a2ef6f03abda17c3447b))
 ## Other Changes
-* chore: version bump to v0.5.1-dev (Lacework)([c451c68](https://github.com/lacework/terraform-aws-ssm-agent/commit/c451c688e95be946f282422c7eeed43eebe5d463))
+* chore: version bump to v0.5.2-dev (Lacework)([21855f7](https://github.com/lacework/terraform-aws-ssm-agent/commit/21855f795acd54ef3de7086a334abbabae57c3a3))
+* ci: sign lacework-releng commits (#24) (Salim Afiune)([a723c2b](https://github.com/lacework/terraform-aws-ssm-agent/commit/a723c2b63f7e1aba6d7af67903e69487d656bf9a))
