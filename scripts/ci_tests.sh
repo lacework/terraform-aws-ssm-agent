@@ -12,6 +12,7 @@ TEST_CASES=(
   examples/default
   examples/access-lacework-token-via-provider
   examples/custom-agent-build-hash
+  examples/custom-agent-temp-path
   examples/custom-server-url
 )
 

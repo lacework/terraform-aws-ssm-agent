@@ -4,6 +4,7 @@ set -e
 
 # Variables coming from the SSM Document
 LACEWORK_INSTALL_PATH='{{ LaceworkInstallPath }}'
+LACEWORK_TEMP_PATH='{{ LaceworkTempPath }}'
 TAGS='{{ Tags }}'
 BUILD_HASH='{{ Hash }}'
 SERVER_URL='{{ Serverurl }}'
@@ -89,13 +90,13 @@ install_lacework_agent() {
     fi
 
     # TODO: Verify the signature of the install.sh script
-    $_curl "$_install_sh" >/tmp/install.sh
+    $_curl "$_install_sh" >"$LACEWORK_TEMP_PATH/install.sh"
 
-    chmod +x /tmp/install.sh
+    chmod +x "$LACEWORK_TEMP_PATH/install.sh"
 
-    sudo /tmp/install.sh "$TOKEN"
+    sudo "$LACEWORK_TEMP_PATH/install.sh" "$TOKEN"
 
-    rm /tmp/install.sh
+    rm "$LACEWORK_TEMP_PATH/install.sh"
   fi
 }
 

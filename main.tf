@@ -15,6 +15,12 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         default     = "/var/lib/lacework"
       }
 
+      LaceworkTempPath = {
+        type        = "String"
+        description = "The temporary path for the Lacework installation script"
+        default     = var.lacework_agent_temp_path
+      }
+
       Token = {
         type        = "String"
         description = "The access token for the Lacework agent"
