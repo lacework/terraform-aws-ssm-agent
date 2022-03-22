@@ -16,6 +16,12 @@ variable "lacework_agent_tags" {
   default     = {}
 }
 
+variable "lacework_agent_temp_path" {
+  type        = string
+  description = "The temporary path for the Lacework installation script"
+  default     = "/tmp"
+}
+
 variable "aws_resources_prefix" {
   type        = string
   description = "Prefix to use for created AWS resources"
