@@ -1,8 +1,7 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.6.0`.
+Another day, another release. These are the release notes for the version `v0.7.0`.
 
 ## Features
-* feat: allow use of v4 aws provider (#30) (Darren)([067abf8](https://github.com/lacework/terraform-aws-ssm-agent/commit/067abf8b54d68ef6afd6d7d9319c0ab908f72e93))
+* feat: adding ability to customize temporary path (#32) (Alan Nix)([e03845f](https://github.com/lacework/terraform-aws-ssm-agent/commit/e03845fa6b5912ad4d070bd92a3d1ee21f9b3cf3))
 ## Other Changes
-* chore: update PR template (#29) (Darren)([886c80e](https://github.com/lacework/terraform-aws-ssm-agent/commit/886c80e75b8f1cd1e725d32e552addc9e8e19b72))
-* ci: version bump to v0.5.3-dev (Lacework)([54a98f1](https://github.com/lacework/terraform-aws-ssm-agent/commit/54a98f198c91e32fa3b2490be588e10f537fb387))
+* ci: version bump to v0.6.1-dev (Lacework)([508003e](https://github.com/lacework/terraform-aws-ssm-agent/commit/508003e364bcb9ff468e3b6c3bf5a4a88c6e9484))
