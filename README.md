@@ -7,6 +7,25 @@
 
 A Terraform Module to create an AWS Systems Manager document for installing the Lacework Datacollector Agent on to AWS EC2 instances.
 
+## Requirements
+
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.14 |
+| <a name="requirement_aws"></a> [aws](#requirement\_aws) | >= 3.0, < 5.0.0 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_aws"></a> [aws](#provider\_aws) | >= 3.0, < 5.0.0 |
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [aws_ssm_document.setup_lacework_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_document) | resource |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
