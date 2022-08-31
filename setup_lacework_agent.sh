@@ -86,7 +86,7 @@ install_lacework_agent() {
 
     _install_sh="https://packages.lacework.net/install.sh"
     if [ "$BUILD_HASH" != "" ]; then
-      _install_sh="https://s3-us-west-2.amazonaws.com/www.lacework.net/download/${BUILD_HASH}/install.sh"
+      _install_sh="https://updates.lacework.net/${BUILD_HASH}/install.sh"
     fi
 
     # TODO: Verify the signature of the install.sh script
