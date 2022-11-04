@@ -1,11 +1,11 @@
 terraform {
-  required_version = ">= 0.12.31"
+  required_version = "~> 1.0"
 
   required_providers {
     aws = "~> 3.0"
     lacework = {
       source  = "lacework/lacework"
-      version = "~> 0.4"
+      version = "~> 1.0"
     }
   }
 }
