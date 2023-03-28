@@ -94,7 +94,13 @@ install_lacework_agent() {
 
     chmod +x "$LACEWORK_TEMP_PATH/install.sh"
 
-    sudo "$LACEWORK_TEMP_PATH/install.sh" "$TOKEN"
+    # Pass flag '-U' when a server URL is provided
+    local _flags
+    if [ "$SERVER_URL" != "" ]; then
+      _flags="-U $SERVER_URL"
+    fi
+
+    sudo "$LACEWORK_TEMP_PATH/install.sh" "$TOKEN" $_flags
 
     rm "$LACEWORK_TEMP_PATH/install.sh"
   fi
