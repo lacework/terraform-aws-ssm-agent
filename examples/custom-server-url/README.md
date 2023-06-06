@@ -12,6 +12,6 @@ module "lacework_ssm_agents_install_custom_server_url" {
   source  = "lacework/ssm-agent/aws"
   version = "~> 0.4"
 
-  lacework_server_url   = "https://api.lacework.net"
+  lacework_server_url   = "https://agent.lacework.net"
 }
 ```
