@@ -11,6 +11,7 @@ SERVER_URL='{{ Serverurl }}'
 # TODO: Fetch the token from AWS SSM Parameter Store instead of
 #       taking it in as a Command parameter (avoid leaks in the AWS Console)
 TOKEN='{{ Token }}'
+ENABLE_DEFAULT_SYSCALL_CONFIG='true'
 
 # Global variables
 _curl=''
@@ -21,6 +22,9 @@ main() {
   verify_valid_host
   install_lacework_agent
   render_agent_config
+  if [ "$ENABLE_DEFAULT_SYSCALL_CONFIG" = "true" ]; then
+    add_default_syscall_config
+  fi
   verify_agent_running
   echo "Lacework configured successfully!"
 }
@@ -77,6 +81,59 @@ render_agent_config() {
     mkdir "$LACEWORK_INSTALL_PATH/config"
   fi
   echo "$_config_json" > "$LACEWORK_INSTALL_PATH/config/config.json"
+}
+
+add_default_syscall_config() {
+  local _syscall_config_yaml
+
+  # Default syscall config
+  _syscall_config_yaml="""
+etype.exec:
+  group-by:
+    - none
+etype.initmod:
+  group-by:
+    - none
+etype.finitmod:
+  group-by:
+    - none
+etype.file:
+  send-if-matches:
+    user-authorized-keys:
+      watchpath: /home/*/.ssh/authorized_keys
+      watchfor: create, modify
+    root-authorized-keys:
+      watchpath: /root/.ssh/authorized_keys
+      watchfor: create, modify
+    cronfiles:
+      watchpath: /etc/cron*
+      depth: 2
+    systemd:
+      watchpath: /etc/systemd/*
+      depth: 2
+    boot-initd:
+      watchpath: /etc/init.d/*
+      depth: 2
+    boot-rc:
+      watchpath: /etc/rc*
+      depth: 2
+    shadow-file:
+      watchpath: /etc/shadow*
+    watchlacework:
+      watchpath: /var/lib/lacework
+      depth: 2
+    watchpasswd:
+      watchpath: /etc/passwd
+    watchsshconfig:
+      watchpath: /etc/ssh/sshd_config
+      watchfor: create, modify
+"""
+
+  echo "Updating the Lacework agent syscall_config.yaml file..."
+  if [ ! -d "$LACEWORK_INSTALL_PATH/config" ]; then
+    mkdir "$LACEWORK_INSTALL_PATH/config"
+  fi
+  echo "$_syscall_config_yaml" > "$LACEWORK_INSTALL_PATH/config/syscall_config.yaml"
 }
 
 install_lacework_agent() {

@@ -44,6 +44,12 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         description = "An Agent build hash provided by Lacework"
         default     = var.lacework_agent_build_hash
       }
+
+      EnableDefaultSyscallConfig = {
+        type        = "Boolean"
+        description = "A flag to enable the default syscall config"
+        default     = var.lacework_enable_default_syscall_config
+      }
     }
 
     mainSteps = [
