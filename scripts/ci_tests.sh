@@ -14,6 +14,7 @@ TEST_CASES=(
   examples/custom-agent-build-hash
   examples/custom-agent-temp-path
   examples/custom-server-url
+  examples/enable-syscall-default-config
 )
 
 log() {

@@ -39,3 +39,9 @@ variable "lacework_server_url" {
   default     = ""
   description = "The server URL for the Lacework agent"
 }
+
+variable "lacework_enable_default_syscall_config" {
+  type        = bool
+  default     = false
+  description = "A flag to enable the default syscall config"
+}
