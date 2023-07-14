@@ -1,10 +1,9 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.9.0`.
+Another day, another release. These are the release notes for the version `v0.10.0`.
 
 ## Features
-* feat: Add support for AWS provider 5.0 (Darren)([7edd3c9](https://github.com/lacework/terraform-aws-ssm-agent/commit/7edd3c985eb5bdd1d238db1c341ca8ad8e9ad752))
-## Documentation Updates
-* docs(RAIN-54746): update example urls (Atul Singh)([dcb7bb8](https://github.com/lacework/terraform-aws-ssm-agent/commit/dcb7bb80bdcdc36170cb3067c2d446a187a6a67e))
+* feat: add flag to add syscall default config (#46) (Nick Schmeller)([d65fb2f](https://github.com/lacework/terraform-aws-ssm-agent/commit/d65fb2f9baa7d7f99399526f211bb589d64d5e16))
+## Bug Fixes
+* fix(CPLAT-672): Update references to api.lacework.net (Atul Singh)([33816ec](https://github.com/lacework/terraform-aws-ssm-agent/commit/33816ec56d57078b1bbbe02b2a260b22475c9308))
 ## Other Changes
-* ci: tfsec (jon-stewart)([177d6f9](https://github.com/lacework/terraform-aws-ssm-agent/commit/177d6f92aada541eba1ffb30e33374e8d570a662))
-* ci: version bump to v0.8.2-dev (Lacework)([1c0bfc1](https://github.com/lacework/terraform-aws-ssm-agent/commit/1c0bfc14d1daf1f2c4c7d19d59ac004c9b2d9a19))
+* ci: version bump to v0.9.1-dev (Lacework)([2674dec](https://github.com/lacework/terraform-aws-ssm-agent/commit/2674dec2101ffd670d800238e09bd95687ce0df2))
