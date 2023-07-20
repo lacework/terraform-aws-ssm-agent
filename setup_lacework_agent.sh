@@ -11,7 +11,7 @@ SERVER_URL='{{ Serverurl }}'
 # TODO: Fetch the token from AWS SSM Parameter Store instead of
 #       taking it in as a Command parameter (avoid leaks in the AWS Console)
 TOKEN='{{ Token }}'
-ENABLE_DEFAULT_SYSCALL_CONFIG='true'
+ENABLE_DEFAULT_SYSCALL_CONFIG='{{ EnableSyscallDefaultConfig }}'
 
 # Global variables
 _curl=''
