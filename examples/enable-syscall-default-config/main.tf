@@ -14,7 +14,7 @@ module "lacework_ssm_agents_install_enable_syscall_default_config" {
 
   lacework_access_token = lacework_agent_access_token.ssm_deployment.token
   lacework_server_url   = "https://agent.lacework.net"
-  lacework_enable_default_syscall_config = true
+  lacework_enable_default_syscall_config = "true"
 }
 
 resource "aws_resourcegroups_group" "testing" {
