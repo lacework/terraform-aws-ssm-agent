@@ -41,7 +41,7 @@ variable "lacework_server_url" {
 }
 
 variable "lacework_enable_default_syscall_config" {
-  type        = bool
-  default     = false
+  type        = string
+  default     = "false"
   description = "A flag to enable the default syscall config"
 }

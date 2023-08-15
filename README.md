@@ -37,7 +37,7 @@ A Terraform Module to create an AWS Systems Manager document for installing the 
 | lacework_agent_tags | A map/dictionary of Tags to be assigned to the Lacework datacollector | `map(string)` | `{}` | no |
 | lacework_agent_temp_path | The temporary path for the Lacework installation script | `string` | `"/tmp"` | no |
 | lacework_server_url | The server URL for the Lacework agent | `string` | `""` | no |
-| lacework_enable_default_syscall_config | A flag to enable the default syscall config | `bool` | `false` | no |
+| lacework_enable_default_syscall_config | A flag to enable the default syscall config | `string` | `"false"` | no |
 
 ## Outputs
 
