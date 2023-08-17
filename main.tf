@@ -46,7 +46,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
       }
 
       EnableDefaultSyscallConfig = {
-        type        = "Boolean"
+        type        = "String"
         description = "A flag to enable the default syscall config"
         default     = var.lacework_enable_default_syscall_config
       }
