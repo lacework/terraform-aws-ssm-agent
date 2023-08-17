@@ -1,7 +1,7 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v0.10.3`.
+Another day, another release. These are the release notes for the version `v0.10.4`.
 
 ## Bug Fixes
-* fix: switch from bool to string for enable syscall (#53) (Nick Schmeller)([c72edbc](https://github.com/lacework/terraform-aws-ssm-agent/commit/c72edbc8a16947bd48b86f6ef6ff4a653c2e628d))
+* fix: use correct type for enable syscall var (#56) (Nick Schmeller)([6fd17da](https://github.com/lacework/terraform-aws-ssm-agent/commit/6fd17dacb74a8d3d41ebfd8ad77e9ccd0ff4d141))
 ## Other Changes
-* ci: version bump to v0.10.3-dev (Lacework)([7e6ba4b](https://github.com/lacework/terraform-aws-ssm-agent/commit/7e6ba4b320830e747bedebd842ffa42574192aa1))
+* ci: version bump to v0.10.4-dev (Lacework)([3a15e10](https://github.com/lacework/terraform-aws-ssm-agent/commit/3a15e10991f5be8537a8852ba5eb8d7eab44496a))
