@@ -38,6 +38,7 @@ No modules.
 | <a name="input_aws_resources_tags"></a> [aws\_resources\_tags](#input\_aws\_resources\_tags) | A map/dictionary of Tags to be assigned to created AWS resources | `map(string)` | `{}` | no |
 | <a name="input_lacework_access_token"></a> [lacework\_access\_token](#input\_lacework\_access\_token) | The access token for the Lacework agent | `string` | `""` | no |
 | <a name="input_lacework_agent_build_hash"></a> [lacework\_agent\_build\_hash](#input\_lacework\_agent\_build\_hash) | An Agent build hash provided by Lacework | `string` | `""` | no |
+| <a name="input_lacework_agent_configuration"></a> [lacework\_agent\_configuration](#input\_lacework\_agent\_configuration) | A map/dictionary of configuration parameters for the Lacework agent | `any` | `{}` | no |
 | <a name="input_lacework_agent_tags"></a> [lacework\_agent\_tags](#input\_lacework\_agent\_tags) | A map/dictionary of Tags to be assigned to the Lacework datacollector | `map(string)` | `{}` | no |
 | <a name="input_lacework_agent_temp_path"></a> [lacework\_agent\_temp\_path](#input\_lacework\_agent\_temp\_path) | The temporary path for the Lacework installation script | `string` | `"/tmp"` | no |
 | <a name="input_lacework_enable_default_syscall_config"></a> [lacework\_enable\_default\_syscall\_config](#input\_lacework\_enable\_default\_syscall\_config) | A flag to enable the default syscall config | `string` | `"false"` | no |

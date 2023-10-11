@@ -50,6 +50,12 @@ resource "aws_ssm_document" "setup_lacework_agent" {
         description = "A flag to enable the default syscall config"
         default     = var.lacework_enable_default_syscall_config
       }
+
+      AdditionalConfig = {
+        type        = "String"
+        description = "Additional configuration parameters for the Lacework agent"
+        default     = jsonencode(var.lacework_agent_configuration)
+      }
     }
 
     mainSteps = [

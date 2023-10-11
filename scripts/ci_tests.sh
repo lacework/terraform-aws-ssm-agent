@@ -15,6 +15,7 @@ TEST_CASES=(
   examples/custom-agent-temp-path
   examples/custom-server-url
   examples/enable-syscall-default-config
+  examples/additional-agent-configuration
 )
 
 log() {

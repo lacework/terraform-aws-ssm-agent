@@ -16,6 +16,12 @@ variable "lacework_agent_tags" {
   default     = {}
 }
 
+variable "lacework_agent_configuration" {
+  type        = any
+  description = "A map/dictionary of configuration parameters for the Lacework agent"
+  default     = {}
+}
+
 variable "lacework_agent_temp_path" {
   type        = string
   description = "The temporary path for the Lacework installation script"
