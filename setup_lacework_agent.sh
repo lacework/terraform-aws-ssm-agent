@@ -8,6 +8,7 @@ LACEWORK_TEMP_PATH='{{ LaceworkTempPath }}'
 TAGS='{{ Tags }}'
 BUILD_HASH='{{ Hash }}'
 SERVER_URL='{{ Serverurl }}'
+ADDITIONAL_CONFIG='{{ AdditionalConfig }}'
 # TODO: Fetch the token from AWS SSM Parameter Store instead of
 #       taking it in as a Command parameter (avoid leaks in the AWS Console)
 TOKEN='{{ Token }}'
@@ -52,6 +53,7 @@ render_agent_config() {
   local _config_json
   local _token_json
   local _server_url_json
+  local _additional_config_json
   local _tags_json
 
   # Token
@@ -60,6 +62,11 @@ render_agent_config() {
   # Server URL
   if [ "$SERVER_URL" != "" ]; then
     _server_url_json='"serverurl": "'$SERVER_URL'",'
+  fi
+
+  # Additional Config Json
+  if [ "$ADDITIONAL_CONFIG" != "" ]; then
+    _additional_config_json='$ADDITIONAL_CONFIG,'
   fi
 
   # Tags
@@ -73,6 +80,7 @@ render_agent_config() {
   _config_json="""{
   ${_token_json}
   ${_server_url_json}
+  ${_additional_config_json}
   ${_tags_json}
 }"""
 
