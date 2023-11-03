@@ -66,7 +66,7 @@ render_agent_config() {
 
   # Additional Config Json
   if [ "$ADDITIONAL_CONFIG" != "" ]; then
-    _additional_config_json='$ADDITIONAL_CONFIG,'
+    _additional_config_json='"'$ADDITIONAL_CONFIG'",'
   fi
 
   # Tags
