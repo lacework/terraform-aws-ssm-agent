@@ -50,6 +50,13 @@ notify_use_docker() {
 }
 
 render_agent_config() {
+  if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    LACEWORK_INSTALL_PATH=$1 
+    ADDITIONAL_CONFIG=$2
+    SERVER_URL=$3
+    TAGS=$4 
+  fi
+
   local _config_json
   local _token_json
   local _server_url_json
@@ -83,6 +90,7 @@ render_agent_config() {
   ${_additional_config_json}
   ${_tags_json}
 }"""
+
 
   echo "Updating the Lacework agent config.json file..."
   if [ ! -d "$LACEWORK_INSTALL_PATH/config" ]; then
@@ -213,4 +221,7 @@ verify_valid_token() {
   fi
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main
+fi
+
