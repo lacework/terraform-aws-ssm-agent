@@ -91,7 +91,6 @@ render_agent_config() {
   ${_tags_json}
 }"""
 
-
   echo "Updating the Lacework agent config.json file..."
   if [ ! -d "$LACEWORK_INSTALL_PATH/config" ]; then
     mkdir "$LACEWORK_INSTALL_PATH/config"
