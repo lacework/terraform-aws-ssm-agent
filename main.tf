@@ -54,7 +54,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
       AdditionalConfig = {
         type        = "String"
         description = "Additional configuration parameters for the Lacework agent"
-        default     = jsonencode(var.lacework_agent_configuration)
+        default     = length(var.lacework_agent_configuration) == 0 ? "" : jsonencode(var.lacework_agent_configuration)
       }
     }
 
