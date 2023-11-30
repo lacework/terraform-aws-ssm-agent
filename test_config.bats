@@ -6,9 +6,10 @@
 
     local config="${path}/config/config.json"
     local validateJson=$(jsonlint $config)
-    echo $validateJson
+    echo $validateJson >&3
 
     local status=$?
+
     [ $status -eq 0 ] 
 }
 
@@ -17,10 +18,9 @@
     local addCfg='"{\"codeaware\": {\"enable\":\"all\" }}"'
     local result=$(bash -c "source setup_lacework_agent.sh && render_agent_config $path $addCfg")
     local config="${path}/config/config.json"
-    local validateJson=$(jsonlint $config)
-    echo $validateJson
-
+    jsonlint $config
     local status=$?
+
     [ $status -eq 0 ] 
 }
 
@@ -31,9 +31,9 @@
     local tags='"{\"env\": \"dev\"}"'
     local result=$(bash -c "source setup_lacework_agent.sh && render_agent_config $path $addCfg $serverUrl, $tags")
     local config="${path}/config/config.json"
-    local validateJson=$(jsonlint $config)
-    echo $validateJson
-
+    jsonlint $config
     local status=$?
+    
+    echo $status
     [ $status -eq 0 ] 
 }
