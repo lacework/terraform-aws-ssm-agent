@@ -51,3 +51,9 @@ variable "lacework_enable_default_syscall_config" {
   default     = "false"
   description = "A flag to enable the default syscall config"
 }
+
+variable "aws_ssm_document_share_account_ids" {
+  type        = string
+  default     = ""
+  description = "A group of account IDs or All,like 123456789012,123456789013"
+}

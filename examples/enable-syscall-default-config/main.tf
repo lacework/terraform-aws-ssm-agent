@@ -12,8 +12,8 @@ resource "lacework_agent_access_token" "ssm_deployment" {
 module "lacework_ssm_agents_install_enable_syscall_default_config" {
   source = "../../"
 
-  lacework_access_token = lacework_agent_access_token.ssm_deployment.token
-  lacework_server_url   = "https://agent.lacework.net"
+  lacework_access_token                  = lacework_agent_access_token.ssm_deployment.token
+  lacework_server_url                    = "https://agent.lacework.net"
   lacework_enable_default_syscall_config = "true"
 }
 

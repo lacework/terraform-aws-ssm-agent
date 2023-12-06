@@ -17,7 +17,7 @@ module "lacework_aws_ssm_agents_install" {
   }
 
   lacework_agent_configuration = {
-    "codeaware":{"enable":"all"}
+    "codeaware" : { "enable" : "all" }
   }
 }
 

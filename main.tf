@@ -79,5 +79,12 @@ resource "aws_ssm_document" "setup_lacework_agent" {
     ]
   })
 
+  dynamic "permissions" {
+    for_each = var.aws_ssm_document_share_account_ids == "" ? ["permissions"] : []
+    content {
+      account_ids = var.aws_ssm_document_share_account_ids
+      type        = "Share"
+    }
+  }
   tags = var.aws_resources_tags
 }
