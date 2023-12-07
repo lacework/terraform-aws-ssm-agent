@@ -50,6 +50,13 @@ notify_use_docker() {
 }
 
 render_agent_config() {
+  if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then
+    LACEWORK_INSTALL_PATH=$1 
+    ADDITIONAL_CONFIG=$2
+    SERVER_URL=$3
+    TAGS=$4 
+  fi
+
   local _config_json
   local _token_json
   local _server_url_json
@@ -213,4 +220,7 @@ verify_valid_token() {
   fi
 }
 
-main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main
+fi
+
