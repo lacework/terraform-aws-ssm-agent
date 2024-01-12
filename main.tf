@@ -81,3 +81,8 @@ resource "aws_ssm_document" "setup_lacework_agent" {
 
   tags = var.aws_resources_tags
 }
+
+data "lacework_metrics" "lwmetrics" {
+  name = basename(abspath(path.module))
+  version = file("${abspath(path.module)}}/VERSION")
+}
