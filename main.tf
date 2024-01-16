@@ -84,5 +84,5 @@ resource "aws_ssm_document" "setup_lacework_agent" {
 
 data "lacework_metrics" "lwmetrics" {
   name = basename(abspath(path.module))
-  version = file("${abspath(path.module)}}/VERSION")
+  version = file("${abspath(path.module)}/VERSION")
 }
