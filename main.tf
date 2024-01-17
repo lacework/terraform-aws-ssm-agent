@@ -1,3 +1,9 @@
+locals {
+  version_file   = "${abspath(path.module)}/VERSION"
+  module_name    = basename(abspath(path.module))
+  module_version = fileexists(local.version_file) ? file(local.version_file) : ""
+}
+
 resource "aws_ssm_document" "setup_lacework_agent" {
   name          = "${var.aws_resources_prefix}setup-lacework-agent"
   document_type = "Command"
@@ -83,6 +89,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
 }
 
 data "lacework_metrics" "lwmetrics" {
-  name = basename(abspath(path.module))
-  version = file("${abspath(path.module)}/VERSION")
+  count   = var.lacework_telemetry_disabled ? 0 : 1
+  name    = local.module_name
+  version = local.module_version
 }
