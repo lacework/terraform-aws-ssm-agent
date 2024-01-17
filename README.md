@@ -46,7 +46,6 @@ No modules.
 | <a name="input_lacework_agent_temp_path"></a> [lacework\_agent\_temp\_path](#input\_lacework\_agent\_temp\_path) | The temporary path for the Lacework installation script | `string` | `"/tmp"` | no |
 | <a name="input_lacework_enable_default_syscall_config"></a> [lacework\_enable\_default\_syscall\_config](#input\_lacework\_enable\_default\_syscall\_config) | A flag to enable the default syscall config | `string` | `"false"` | no |
 | <a name="input_lacework_server_url"></a> [lacework\_server\_url](#input\_lacework\_server\_url) | The server URL for the Lacework agent | `string` | `""` | no |
-| <a name="input_lacework_telemetry_disabled"></a> [lacework\_telemetry\_disabled](#input\_lacework\_telemetry\_disabled) | Disable Lacework telemetry | `bool` | `false` | no |
 
 ## Outputs
 

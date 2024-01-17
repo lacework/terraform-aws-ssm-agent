@@ -89,7 +89,6 @@ resource "aws_ssm_document" "setup_lacework_agent" {
 }
 
 data "lacework_metrics" "lwmetrics" {
-  count   = var.lacework_telemetry_disabled ? 0 : 1
   name    = local.module_name
   version = local.module_version
 }

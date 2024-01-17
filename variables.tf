@@ -51,9 +51,3 @@ variable "lacework_enable_default_syscall_config" {
   default     = "false"
   description = "A flag to enable the default syscall config"
 }
-
-variable "lacework_telemetry_disabled" {
-  type        = bool
-  default     = false
-  description = "Disable Lacework telemetry"
-}
