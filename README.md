@@ -31,7 +31,7 @@ No modules.
 | Name | Type |
 |------|------|
 | [aws_ssm_document.setup_lacework_agent](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_document) | resource |
-| [lacework_metrics.lwmetrics](https://registry.terraform.io/providers/lacework/lacework/latest/docs/data-sources/metrics) | data source |
+| [lacework_metric_module.lwmetrics](https://registry.terraform.io/providers/lacework/lacework/latest/docs/data-sources/metric_module) | data source |
 
 ## Inputs
 
