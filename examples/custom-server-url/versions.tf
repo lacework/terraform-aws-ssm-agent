@@ -5,7 +5,7 @@ terraform {
     aws = "~> 3.0"
     lacework = {
       source  = "lacework/lacework"
-      version = "~> 0.4"
+      version = "~> 1.18"
     }
   }
 }
