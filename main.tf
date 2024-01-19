@@ -88,7 +88,7 @@ resource "aws_ssm_document" "setup_lacework_agent" {
   tags = var.aws_resources_tags
 }
 
-data "lacework_metrics" "lwmetrics" {
+data "lacework_metric_module" "lwmetrics" {
   name    = local.module_name
   version = local.module_version
 }
