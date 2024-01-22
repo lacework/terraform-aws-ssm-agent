@@ -1,4 +1,4 @@
-# v0.11.3
+# v1.0.0
 
 ## Other Changes
 * chore: add lacework metrics data source (#69) (Darren)([ce3a1bc](https://github.com/lacework/terraform-aws-ssm-agent/commit/ce3a1bcad8deccc343909312beb2b64fcaf6c547))
