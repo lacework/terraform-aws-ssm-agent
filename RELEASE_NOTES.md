@@ -1,6 +1,6 @@
 # Release Notes
-Another day, another release. These are the release notes for the version `v1.0.0`.
+Another day, another release. These are the release notes for the version `v1.0.1`.
 
 ## Other Changes
-* chore: add lacework metrics data source (#69) (Darren)([ce3a1bc](https://github.com/lacework/terraform-aws-ssm-agent/commit/ce3a1bcad8deccc343909312beb2b64fcaf6c547))
-* ci: version bump to v0.11.3-dev (Lacework)([bd44cbb](https://github.com/lacework/terraform-aws-ssm-agent/commit/bd44cbb04b7a479dc5c7e9bec64ef8c6b2d6ff47))
+* chore: set local var module name (#71) (Darren)([07c5fcf](https://github.com/lacework/terraform-aws-ssm-agent/commit/07c5fcff5444d90d977d303f49ae0b15dccad167))
+* ci: version bump to v1.0.1-dev (Lacework)([08555aa](https://github.com/lacework/terraform-aws-ssm-agent/commit/08555aad9e09b88d5e6c0aebd4521404ace3d966))
